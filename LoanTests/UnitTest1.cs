@@ -1,4 +1,4 @@
-namespace MsTest_Syntax_Squad
+namespace LoanTests
 {
     [TestClass]
     public class UnitTest1

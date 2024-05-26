@@ -27,10 +27,10 @@ namespace Syntax_Squad
                 switch (userInput)
                 {
                     case "1":
-                        transfer.TransferBetweenOwnAccounts(user);
+                        //transfer.TransferBetweenOwnAccounts(user);
                         break;
                     case "2":
-                        transfer.TransferBetweenOtherAccounts(user);
+                        //transfer.TransferBetweenOtherAccounts(user);
                         break;
                     case "3":
                         Transfer.PrintTransactionHistoryUser(user);

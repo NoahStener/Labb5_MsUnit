@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Syntax Squad", "Syntax Squad\Syntax Squad.csproj", "{CF30BD63-FE07-496F-B683-E2D7159A4E42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsTest_Syntax_Squad", "MsTest_Syntax_Squad\MsTest_Syntax_Squad.csproj", "{9B1628CA-8DA3-4409-AA29-2BA059F7ADC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MsTest_Syntax_Squad", "MsTest_Syntax_Squad\MsTest_Syntax_Squad.csproj", "{9B1628CA-8DA3-4409-AA29-2BA059F7ADC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

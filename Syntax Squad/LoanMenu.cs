@@ -27,7 +27,7 @@ namespace Syntax_Squad
                 switch (userInput)
                 {
                     case "1":
-                        Loan.TakeOutLoan(user);
+                        //Loan.TakeOutLoan(user);
                         break;
                     case "2":
                         Loan.SeeUserLoans(user);
