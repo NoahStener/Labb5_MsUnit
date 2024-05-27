@@ -10,6 +10,7 @@ namespace MsTest_Syntax_Squad
         //Tester som bör finnas med
         //Överföring mellan konton med samma valuta / negativa värden
         //Överföring mellan konton med olika valuta / negativa värden
+        //Överföring till annan användare 
         
 
         [TestMethod]
@@ -172,5 +173,7 @@ namespace MsTest_Syntax_Squad
             Assert.IsTrue((decimal)accounts[1].Balance > 200);
 
         }
+
+        
     }
 }

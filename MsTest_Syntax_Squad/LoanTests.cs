@@ -31,11 +31,14 @@ namespace MsTest_Syntax_Squad
 
             //Act
             Loan.TakeOutLoan(user, loanSize, toAcc);
+            var loans = Loan.GetUserLoans(user);
 
 
             //Assert
             var expectedBalance = 700; // 200 + 500
             Assert.AreEqual(expectedBalance, accounts[0].Balance);
+            Assert.AreEqual(1,loans.Count);
+
         }
 
         [TestMethod]
@@ -47,36 +50,84 @@ namespace MsTest_Syntax_Squad
                 new BankAccount("test1", "test", 123, "user", 1, "SEK", 200)
             };
             BankAccount.bankAccounts = accounts;
-            var user = new User { Name="user", UserId = 1 };
-
+            var user = new User { Name= "user", UserId = 1 };
             double loanSize = 2000;
             int toAcc = 123;
 
-            
-            // Act & Assert
-            Assert.ThrowsException<InvalidOperationException>(() => Loan.TakeOutLoan(user, loanSize, toAcc));
+            //Act
+            Loan.TakeOutLoan(user, loanSize, toAcc);
+            var loans = Loan.GetUserLoans(user);
 
+            //Assert
+            var expectedBalance = accounts[0].Balance = 200;  //Oförändrad account balance
+            Assert.AreEqual(expectedBalance, accounts[0].Balance);
+            Assert.AreEqual(0, loans.Count);
         }
 
         [TestMethod]
-        public void GetUserLoans_ShouldReturnLoans()
+        public void TakeOutLoan_ShouldThrowException_WhenAccountIsInvalid()
         {
-            //Arrange
             var accounts = new List<BankAccount>
             {
                 new BankAccount("test1", "test", 123, "user", 1, "SEK", 200)
             };
             BankAccount.bankAccounts = accounts;
             var user = new User { Name = "user", UserId = 1 };
-
+            double loanSize = 100;
+            int toAcc = 999; //fel kontonummer
 
             //Act
-            Loan.TakeOutLoan(user, 400, 123);
+            Loan.TakeOutLoan(user, loanSize, toAcc);
             var loans = Loan.GetUserLoans(user);
 
-            //Assert
-            Assert.AreEqual(1, loans.Count);
-            Assert.AreEqual(400, loans[0].loanAmount);
+            var expectedBalance = accounts[0].Balance = 200;
+            Assert.AreEqual (expectedBalance, accounts[0].Balance);
+            Assert.AreEqual(0, loans.Count);
+        }
+
+        [TestMethod]
+        public void TakeOutLoan_ShouldThrowException_WhenAmountIsNegative()
+        {
+            var accounts = new List<BankAccount>
+            {
+                new BankAccount("test1", "test", 123, "user", 1, "SEK", 200)
+            };
+            BankAccount.bankAccounts = accounts;
+            var user = new User { Name = "user", UserId = 1 };
+            double loanSize = -100;  //negativt värde
+            int toAcc = 123; 
+
+            //Act
+            Loan.TakeOutLoan(user, loanSize, toAcc);
+            var loans = Loan.GetUserLoans(user);
+
+            var expectedBalance = accounts[0].Balance = 200;
+            Assert.AreEqual(expectedBalance, accounts[0].Balance);
+            Assert.AreEqual(0, loans.Count);
+        }
+
+        [TestMethod]
+        public void TakeOutLoan_ShouldSucceed_WhenLoanAmountIsExactlyLimit()
+        {
+            var accounts = new List<BankAccount>
+            {
+                 new BankAccount("test1", "test", 123, "user", 1, "SEK", 100)
+            };
+            BankAccount.bankAccounts = accounts;
+            var user = new User { Name = "user",UserId = 1};
+
+            double loanSize = 500; //lån 5 gånger så stort som users balance
+            int toAcc = 123;
+
+            //Act
+            Loan.TakeOutLoan(user, loanSize, toAcc);
+            var loans = Loan.GetUserLoans(user);
+
+            //assert
+            var expectedBalance = 100 + 500;
+            Assert.AreEqual(expectedBalance, accounts[0].Balance);
+            Assert.AreEqual(1,loans.Count);
+            Assert.AreEqual(500, loans[0].loanAmount);
         }
 
     }

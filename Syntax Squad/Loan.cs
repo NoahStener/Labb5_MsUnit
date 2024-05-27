@@ -72,6 +72,11 @@ namespace Syntax_Squad
 
         public static void TakeOutLoan(User user, double loanSize, int toAcc)
         {
+            if(loanSize <= 0)
+            {
+                throw new ArgumentException("Amount must be positive");
+            }
+
             var convertedAmount = 0.0;
             totalMoneyAmount = 0;
 
@@ -86,7 +91,7 @@ namespace Syntax_Squad
                 }
             }
 
-            if(loanSize <= totalMoneyAmount *5)
+            if(loanSize <= totalMoneyAmount * 5)
             {
                 //List<int> accNr = getBankInfo.LoggedInAccountList(user);
                 var toAccount = GetBankAccount(toAcc);
